@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import AdminUserList from "@/views/AdminUserList.vue";
+import UserLogin from "@/views/UserLogin.vue";
 
 Vue.use(VueRouter);
 
@@ -9,6 +11,16 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/login",
+    name: "user-login",
+    component: UserLogin
+  },
+  {
+    path: "/admin/users",
+    name: "admin-user-list",
+    component: AdminUserList
   },
   {
     path: "/about",
