@@ -41,8 +41,8 @@ export default new Vuex.Store({
       try {
         await axios
           .post(
-            // "https://178.154.229.95/login_check",
-            "http://localhost:8000/auth/login",
+            "https://178.154.229.95/login_check",
+            // "http://localhost:8000/auth/login",
             loginInfo
           )
           .then(response => {

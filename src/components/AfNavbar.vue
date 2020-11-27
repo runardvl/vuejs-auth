@@ -26,6 +26,8 @@
 </template>
 
 <script>
+// import { mapState } from "vuex";
+
 export default {
   name: "AfNavbar",
   props: {
@@ -35,6 +37,7 @@ export default {
     }
   },
   data: () => ({}),
+  computed: {},
   methods: {
     logoutUser() {
       this.$store.dispatch("logoutUser");
