@@ -1,9 +1,12 @@
 <template>
   <div class="user-login">
+    <h1>Login</h1>
     <user-auth-form
-      :error="getError"
+      :getError="getError"
+      :get-loading="getLoading"
       :submitForm="loginUser"
-      :currentUser="getCurrentUser"
+      :currentUser="currentUser"
+      buttonText="Login"
     />
   </div>
 </template>
@@ -14,25 +17,27 @@ import userAuthForm from "@/components/userAuthForm";
 
 export default {
   name: "UserLogin",
-  data: () => ({
-    loginInfo: {
-      email: "",
-      password: ""
-    }
-  }),
   components: { userAuthForm },
   computed: {
     ...mapState({
       getError: "error",
       getLoading: "loading",
-      getCurrentUser: "currentUser"
+      currentUser: "currentUser"
     })
   },
   methods: {
     async loginUser(loginInfo) {
       // eslint-disable-next-line no-console
-      console.log("form submitted");
+      console.log("form submitted with data:" + JSON.stringify(loginInfo));
       await this.$store.dispatch("loginUser", loginInfo);
+      if (this.getError !== null) {
+        alert(this.getError);
+      } else {
+        alert(
+          "Thank you for signing in. Your ID: " +
+            JSON.stringify(this.currentUser.id)
+        );
+      }
     }
   }
 };

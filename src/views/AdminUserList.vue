@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <h1>Admin panel</h1>
     <div class="" v-for="user in users" :key="user.id">
       {{ user.email }} <button @click="loginUser(user)">Login</button>
     </div>

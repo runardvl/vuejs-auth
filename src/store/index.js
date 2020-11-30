@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     users: [],
     currentUser: {},
-    error: "",
+    error: null,
     loading: true
   },
   mutations: {
@@ -43,6 +43,10 @@ export default new Vuex.Store({
       let userId = JSON.parse(localStorage.currentUser);
       commit("SET_CURRENT_USER", userId);
     },
+    async loadCurrentUser({ commit }) {
+      let userId = JSON.parse(localStorage.currentUser);
+      commit("SET_CURRENT_USER", userId);
+    },
     logoutUser({ commit }) {
       commit("LOGOUT_USER");
     },
@@ -58,6 +62,29 @@ export default new Vuex.Store({
           console.log(error.response.data.message || error.message);
           commit("ERROR", error);
         });
+    },
+    async registerUser({ commit }, registrationInfo) {
+      await axios
+        .post("http://178.154.229.95/register", registrationInfo)
+        .then(response => {
+          let user = response.data;
+          commit("LOADING");
+          commit("SET_CURRENT_USER", user);
+        })
+        .catch(error => {
+          // console.log(error.response.data.message || error.message || error);
+          console.log(error.response.data.title);
+          commit("ERROR", error.response.data.title);
+        });
+    }
+  },
+  getters: {
+    ERROR: state => {
+      if (state.error !== null || state.currentUser.error) {
+        return state.error || state.currentUser.error;
+      } else {
+        return state.error;
+      }
     }
   },
   modules: {}

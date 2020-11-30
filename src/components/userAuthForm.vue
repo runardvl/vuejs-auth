@@ -1,12 +1,12 @@
 <template>
   <div class="user-login">
-    <form @submit.prevent="submitForm(loginInfo)">
+    <form @submit.prevent="submitForm(userInfo)">
       <label>
-        <input v-model="loginInfo.email" type="email" placeholder="E-mail" />
+        <input v-model="userInfo.email" type="email" placeholder="E-mail" />
       </label>
       <label>
         <input
-          v-model="loginInfo.password"
+          v-model="userInfo.password"
           :type="showPassword ? 'text' : 'password'"
           placeholder="Password"
         />
@@ -17,20 +17,21 @@
           {{ showPassword ? "visibility_off" : "visibility" }}
         </button>
       </label>
-      <button type="submit">Login</button>
+      <button type="submit">{{ buttonText }}</button>
     </form>
-    <div v-if="getError" class="error">
-      <p>{{ getError }}</p>
+    <div v-if="ERROR" class="error">
+      <p>{{ ERROR }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "userAuthForm",
   data: () => ({
     showPassword: false,
-    loginInfo: {
+    userInfo: {
       email: "",
       password: ""
     }
@@ -41,9 +42,20 @@ export default {
       require: true
     },
     getError: {
+      type: Error,
+      default: {}
+    },
+    getLoading: {
+      type: Boolean,
+      default: () => true
+    },
+    buttonText: {
       type: String,
       default: () => ""
     }
+  },
+  computed: {
+    ...mapGetters(["ERROR"])
   }
 };
 </script>

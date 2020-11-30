@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <af-navbar />
+    <af-navbar :currentUser="getCurrentUser" />
 
     <router-view />
   </div>
@@ -12,8 +12,13 @@ import AfNavbar from "@/components/AfNavbar";
 
 export default {
   name: "App",
+  mounted() {
+    this.$store.dispatch("loadCurrentUser");
+  },
   computed: {
-    ...mapState(["currentUser"])
+    ...mapState({
+      getCurrentUser: "currentUser"
+    })
   },
   components: {
     AfNavbar
