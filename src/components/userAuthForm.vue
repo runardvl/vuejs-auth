@@ -65,12 +65,12 @@ form {
   display: grid;
   grid-auto-flow: column;
   width: 500px;
-  justify-items: center;
+  justify-items: stretch;
   align-items: center;
   grid-gap: 10px;
   label {
     display: grid;
-    justify-items: center;
+    justify-items: stretch;
     align-items: center;
     grid-auto-flow: column;
     margin: 0;
@@ -83,8 +83,8 @@ form {
     color: rgba(#000, 0.5);
     outline: none;
     cursor: pointer;
-    transform: translateX(-28px);
-    margin-right: -28px;
+    transform: translateX(-33px);
+    margin-right: -33px;
   }
 }
 </style>
