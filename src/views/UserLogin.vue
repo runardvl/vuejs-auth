@@ -1,49 +1,41 @@
 <template>
-  <form @submit.prevent="loginUser">
-    <label>
-      <input v-model="loginInfo.email" type="email" placeholder="E-mail" />
-    </label>
-    <label>
-      <input
-        v-model="loginInfo.password"
-        type="password"
-        placeholder="Password"
-      />
-    </label>
-    <button type="submit">Login</button>
-  </form>
+  <div class="user-login">
+    <user-auth-form
+      :error="getError"
+      :submitForm="loginUser"
+      :currentUser="getCurrentUser"
+    />
+  </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import userAuthForm from "@/components/userAuthForm";
+
 export default {
   name: "UserLogin",
   data: () => ({
     loginInfo: {
       email: "",
-      password: "",
-      token: null
+      password: ""
     }
   }),
+  components: { userAuthForm },
+  computed: {
+    ...mapState({
+      getError: "error",
+      getLoading: "loading",
+      getCurrentUser: "currentUser"
+    })
+  },
   methods: {
-    async loginUser() {
+    async loginUser(loginInfo) {
       // eslint-disable-next-line no-console
       console.log("form submitted");
-      let user = await this.$store.dispatch("loginUser", this.loginInfo);
-      if (user.error) {
-        alert(user.error);
-      } else {
-        // await this.$router.push("/");
-        alert("Thank you for signing in, " + user);
-      }
+      await this.$store.dispatch("loginUser", loginInfo);
     }
   }
 };
 </script>
 
-<style lang="scss">
-form {
-  display: grid;
-  grid-auto-flow: column;
-  width: 500px;
-}
-</style>
+<style lang="scss"></style>

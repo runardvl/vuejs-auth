@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <af-navbar :currentUser="currentUser" />
+    <af-navbar />
 
     <router-view />
   </div>

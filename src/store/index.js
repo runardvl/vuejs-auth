@@ -7,7 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     users: [],
-    currentUser: {}
+    currentUser: {},
+    error: "",
+    loading: true
   },
   mutations: {
     SET_USERS(state, users) {
@@ -20,6 +22,13 @@ export default new Vuex.Store({
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
       window.localStorage.currentUser = JSON.stringify(user);
+      return user;
+    },
+    ERROR(state, data) {
+      return (state.error = data);
+    },
+    LOADING(state) {
+      return (state.loading = false);
     }
   },
   actions: {
@@ -38,26 +47,17 @@ export default new Vuex.Store({
       commit("LOGOUT_USER");
     },
     async loginUser({ commit }, loginInfo) {
-      try {
-        await axios
-          .post(
-            "https://178.154.229.95/login_check",
-            // "http://localhost:8000/auth/login",
-            loginInfo
-          )
-          .then(response => {
-            let user = response.data;
-            console.log(user);
-            // debugger;
-
-            commit("SET_CURRENT_USER", user);
-            return user;
-          });
-      } catch {
-        return {
-          error: "Email/password combination was incorrect. Please try again."
-        };
-      }
+      await axios
+        .post("http://178.154.229.95/login_check", loginInfo)
+        .then(response => {
+          let user = response.data;
+          commit("LOADING");
+          commit("SET_CURRENT_USER", user);
+        })
+        .catch(error => {
+          console.log(error.response.data.message || error.message);
+          commit("ERROR", error);
+        });
     }
   },
   modules: {}

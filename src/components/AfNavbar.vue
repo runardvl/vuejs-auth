@@ -1,24 +1,21 @@
 <template>
   <nav id="nav" class="nav">
-    <span
-      style="width: 300px; overflow-x: hidden"
-      v-if="currentUser.access_token"
-      class="logo"
-      >{{
-        "Current User has only access token. P.S. Parked in localStorage"
-      }}</span
-    >
-    <router-link v-else to="/login">No user</router-link>
+    <span style="width: 300px; overflow-x: hidden" class="logo">{{
+      "Current User has only access token. P.S. Parked in localStorage"
+    }}</span>
+    <!--    <router-link v-else to="/login">No user</router-link>-->
 
     <ul>
       <li><router-link to="/">Home</router-link> |</li>
       <li><router-link to="/about">About</router-link> |</li>
       <li><router-link to="/admin/users">Admin panel</router-link> |</li>
       <li><router-link to="/register">Register</router-link> |</li>
-      <li v-if="!currentUser.access_token">
+      <li>
+        <!--      <li v-if="!currentUser.token">-->
         <router-link to="/login">Login</router-link>
       </li>
-      <li v-if="currentUser.access_token">
+      <!--      <li v-if="currentUser.token">-->
+      <li>
         <button @click.prevent="logoutUser">Logout</button>
       </li>
     </ul>
@@ -26,18 +23,9 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
-
 export default {
   name: "AfNavbar",
-  props: {
-    currentUser: {
-      type: Object,
-      default: () => {}
-    }
-  },
   data: () => ({}),
-  computed: {},
   methods: {
     logoutUser() {
       this.$store.dispatch("logoutUser");
