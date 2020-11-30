@@ -27,7 +27,8 @@ export default {
   computed: {
     ...mapState({
       getError: "error",
-      getLoading: "loading"
+      getLoading: "loading",
+      currentUser: "currentUser"
     }),
     ...mapGetters(["ERROR"])
   },
@@ -38,7 +39,7 @@ export default {
         "form submitted with data:" + JSON.stringify(registrationInfo)
       );
       await this.$store.dispatch("registerUser", registrationInfo);
-      if (this.getError === null) {
+      if (this.getError === null && this.currentUser.error === null) {
         alert(
           "Thank you for signing in. Your ID: " +
             JSON.stringify(this.currentUser.id)
