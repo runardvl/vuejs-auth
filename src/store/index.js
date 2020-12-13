@@ -52,7 +52,7 @@ export default new Vuex.Store({
     },
     async loginUser({ commit }, loginInfo) {
       await axios
-        .post("http://178.154.229.95/login_check", loginInfo)
+        .post("https://api.regtehosmotr.ru/login_check", loginInfo)
         .then(response => {
           let user = response.data;
           commit("LOADING");
@@ -65,7 +65,7 @@ export default new Vuex.Store({
     },
     async registerUser({ commit }, registrationInfo) {
       await axios
-        .post("http://178.154.229.95/register", registrationInfo)
+        .post("https://api.regtehosmotr.ru/register", registrationInfo)
         .then(response => {
           let user = response.data;
           commit("LOADING");

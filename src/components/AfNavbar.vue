@@ -12,7 +12,7 @@
 
     <ul>
       <li><router-link to="/">Home</router-link> |</li>
-      <li><router-link to="/about">About</router-link> |</li>
+      <li><router-link to="/account">Account</router-link> |</li>
       <li><router-link to="/admin/users">Admin panel</router-link> |</li>
       <li v-if="currentUser.token">
         <button @click.prevent="logoutUser">Logout</button>
